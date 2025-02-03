@@ -1,10 +1,20 @@
-﻿namespace CalculatorApp;
+﻿using Microsoft.Extensions.Logging;
+
+namespace CalculatorApp;
 
 class Program
 {
     static void Main(string[] args)
 
     {
+
+        var logger = LoggerProvider.CreateLogger<Program>();
+        logger.LogInformation("Application started.");
+
+        System.Threading.Thread.Sleep(100);
+
+        var calculatorLogger = LoggerProvider.CreateLogger<Calculator>();
+
         double num1 = 0;
         double num2 = 0;
         string operation = "add";
@@ -25,7 +35,7 @@ class Program
 
             if (validInput)
             {
-                var calculator = new Calculator();
+                var calculator = new Calculator(calculatorLogger);
                 double result = calculator.PerformOperation(num1, num2, operation);
                 Console.WriteLine($"The result is: {result}");
             }
